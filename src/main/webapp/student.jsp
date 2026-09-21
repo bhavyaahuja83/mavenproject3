@@ -2,8 +2,9 @@
 <%
     String name = request.getParameter("sname");
     String roll = request.getParameter("roll");
+    String email = request.getParameter("email");
     String course = request.getParameter("course");
-    String marks = request.getParameter("marks");
+    String gender = request.getParameter("gender");
     boolean submitted = "POST".equalsIgnoreCase(request.getMethod());
 %>
 <!DOCTYPE html>
@@ -49,7 +50,7 @@
                 gap: 6px;
                 font-weight: 600;
             }
-            input {
+            input, select {
                 box-sizing: border-box;
                 width: 100%;
                 padding: 11px 12px;
@@ -57,9 +58,22 @@
                 border-radius: 5px;
                 font: inherit;
             }
-            input:focus {
+            input:focus, select:focus {
                 outline: 2px solid #78a9d1;
                 border-color: #246b9f;
+            }
+            .gender-options {
+                display: flex;
+                gap: 18px;
+                font-weight: 400;
+            }
+            .gender-options label {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+            .gender-options input {
+                width: auto;
             }
             button {
                 border: 0;
@@ -99,12 +113,30 @@
                 <label for="roll">Roll Number
                     <input id="roll" type="text" name="roll" value="<%= roll == null ? "" : roll %>" required>
                 </label>
+                <label for="email">Email
+                    <input id="email" type="email" name="email" value="<%= email == null ? "" : email %>" required>
+                </label>
                 <label for="course">Course
-                    <input id="course" type="text" name="course" value="<%= course == null ? "" : course %>" required>
+                    <select id="course" name="course" required>
+                        <option value="">Select a course</option>
+                        <option value="BCA">BCA</option>
+                        <option value="MCA">MCA</option>
+                        <option value="B.Tech">B.Tech</option>
+                        <option value="M.Tech">M.Tech</option>
+                        <option value="B.Sc">B.Sc</option>
+                        <option value="M.Sc">M.Sc</option>
+                        <option value="BBA">BBA</option>
+                        <option value="MBA">MBA</option>
+                    </select>
                 </label>
-                <label for="marks">Marks
-                    <input id="marks" type="number" name="marks" min="0" max="100" value="<%= marks == null ? "" : marks %>" required>
-                </label>
+                <fieldset>
+                    <legend>Gender</legend>
+                    <div class="gender-options">
+                        <label><input type="radio" name="gender" value="Male" required> Male</label>
+                        <label><input type="radio" name="gender" value="Female"> Female</label>
+                        <label><input type="radio" name="gender" value="Others"> Others</label>
+                    </div>
+                </fieldset>
                 <button type="submit">Submit</button>
             </form>
             <% if (submitted) { %>
@@ -112,8 +144,9 @@
                     <h2>Student Details</h2>
                     <% out.println("<p><strong>Name:</strong> " + name + "</p>"); %>
                     <p><strong>Roll Number:</strong> <%= roll %></p>
+                    <p><strong>Email:</strong> <%= email %></p>
                     <p><strong>Course:</strong> <%= course %></p>
-                    <p><strong>Marks:</strong> <%= marks %></p>
+                    <p><strong>Gender:</strong> <%= gender %></p>
                 </section>
             <% } %>
         </main>
